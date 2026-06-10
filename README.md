@@ -12,4 +12,4 @@ Now that is something interesting. This app is in progress... and freezed at the
 
 ## Some screenshots
 
-![A screenshot of the design for this project](./InAppScreenShots/2026.06.10.png)
+![A screenshot of the design for this project](./InAppScreenshots/2026.06.10.png)
