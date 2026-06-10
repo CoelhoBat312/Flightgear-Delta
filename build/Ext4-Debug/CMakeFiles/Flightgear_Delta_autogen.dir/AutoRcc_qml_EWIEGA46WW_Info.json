@@ -1,0 +1,31 @@
+{
+	"BUILD_DIR" : "/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/Flightgear_Delta_autogen",
+	"CMAKE_BINARY_DIR" : "/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/andrew/Projects/Programming/C++/Flightgear_Delta",
+	"CMAKE_SOURCE_DIR" : "/home/andrew/Projects/Programming/C++/Flightgear_Delta",
+	"GENERATOR" : "Ninja",
+	"INCLUDE_DIR" : "/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/Flightgear_Delta_autogen/include",
+	"INPUTS" : 
+	[
+		"/home/andrew/Projects/Programming/C++/Flightgear_Delta/qml/main.qml",
+		"/home/andrew/Projects/Programming/C++/Flightgear_Delta/qml/components/TopBarButton.qml",
+		"/home/andrew/Projects/Programming/C++/Flightgear_Delta/qml/components/AircraftCard.qml",
+		"/home/andrew/Projects/Programming/C++/Flightgear_Delta/qml/components/AircraftDetailPanel.qml",
+		"/home/andrew/Projects/Programming/C++/Flightgear_Delta/qml/pages/LaunchPage.qml",
+		"/home/andrew/Projects/Programming/C++/Flightgear_Delta/qml/pages/SettingsPage.qml",
+		"/home/andrew/Projects/Programming/C++/Flightgear_Delta/qml/pages/PreviewPage.qml",
+		"/home/andrew/Projects/Programming/C++/Flightgear_Delta/qml/pages/LaunchSubPages/Summary.qml",
+		"/home/andrew/Projects/Programming/C++/Flightgear_Delta/qml/pages/LaunchSubPages/Aircrafts.qml"
+	],
+	"LOCK_FILE" : "/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/CMakeFiles/Flightgear_Delta_autogen.dir/AutoRcc_qml_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "qml" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_qml.cpp",
+	"RCC_EXECUTABLE" : "/usr/lib/qt5/bin/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/CMakeFiles/Flightgear_Delta_autogen.dir/AutoRcc_qml_EWIEGA46WW_Used.txt",
+	"SOURCE" : "/home/andrew/Projects/Programming/C++/Flightgear_Delta/qml.qrc",
+	"VERBOSITY" : 0
+}

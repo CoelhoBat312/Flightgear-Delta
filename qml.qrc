@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/components/TopBarButton.qml</file>
+        <file>qml/pages/LaunchPage.qml</file>
+        <file>qml/pages/PreviewPage.qml</file>
+        <file>qml/pages/SettingsPage.qml</file>
+        <file>qml/pages/LaunchSubPages/Summary.qml</file>
+        <file>qml/pages/LaunchSubPages/Aircrafts.qml</file>
+        <file>qml/components/AircraftCard.qml</file>
+        <file>qml/components/AircraftDetailPanel.qml</file>
+    </qresource>
+</RCC>
