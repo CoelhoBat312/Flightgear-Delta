@@ -1,9 +1,0 @@
-/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/CMakeFiles/Flightgear_Delta.dir
-/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/CMakeFiles/edit_cache.dir
-/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/CMakeFiles/rebuild_cache.dir
-/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/CMakeFiles/list_install_components.dir
-/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/CMakeFiles/install.dir
-/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/CMakeFiles/install/local.dir
-/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/CMakeFiles/install/strip.dir
-/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/CMakeFiles/Flightgear_Delta_autogen_timestamp_deps.dir
-/home/andrew/Projects/Programming/C++/Flightgear_Delta/build/Ext4-Debug/CMakeFiles/Flightgear_Delta_autogen.dir
