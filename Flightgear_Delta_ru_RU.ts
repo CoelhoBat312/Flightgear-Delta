@@ -14,6 +14,7 @@
     <message>
         <location filename="qml/pages/FirstRunScreen.qml" line="14"/>
         <source>Set path to FlightGear</source>
+        <oldsource>Укажите путь до FlightGear</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29,6 +30,7 @@
     <message>
         <location filename="qml/pages/FirstRunScreen.qml" line="36"/>
         <source>Choose a FlightGear folder</source>
+        <oldsource>Выберите папку FlightGear</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -27,13 +27,17 @@ LaunchManager::LaunchManager(QObject* parent)
     }
 }
 
-void LaunchManager::launch() {
+void LaunchManager::launch(QStringList args) {
     if (m_running) return;
 
-    QStringList args;
-    args << "--airport=>ULLI"
-         << "--aircraft=c172p"
-         << "--time-of-day=noon";
+    // If no arguments were provided (which is okay until launch system is completed), we'll use placehodlers
+    if (args.length() == 0)
+    {
+        args << "--airport=LFPO"
+             << "--aircraft=c172p";
+    }
+
+    qDebug() << "Warning: No arguments to start with, starting with placeholders: ULLI, c172p!";
 
     m_process->start("fgfs", args);
 }
@@ -45,14 +49,11 @@ bool LaunchManager::isValidFgRoot(const QString& path) const
         return false;
     }
 
-    // главный маркер: файл version в корне fgdata
     QFileInfo versionFile(dir.filePath("version"));
     if (!versionFile.exists() || !versionFile.isFile()) {
         return false;
     }
 
-    // дополнительная проверка структуры — без этого version-файл
-    // мог остаться от битой/неполной установки
     static const QStringList requiredDirs = {"Aircraft", "Scenery"};
     for (const QString& sub : requiredDirs) {
         if (!QFileInfo::exists(dir.filePath(sub))) {

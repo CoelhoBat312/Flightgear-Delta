@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     LaunchManager manager;
     engine.rootContext()->setContextProperty("launcher", &manager);
 
-    engine.load(url); // после
+    engine.load(url);
 
     return app.exec();
 }

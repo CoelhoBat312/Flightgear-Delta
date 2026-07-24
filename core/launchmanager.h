@@ -15,7 +15,7 @@ class LaunchManager : public QObject {
 public:
     explicit LaunchManager(QObject* parent = nullptr);
 
-    Q_INVOKABLE void launch();
+    Q_INVOKABLE void launch(QStringList args);
     Q_INVOKABLE void stop();
     Q_INVOKABLE QString aircraftThumbnail(const QString& aircraftName);
     Q_INVOKABLE bool setFgRoot(const QString& path);
