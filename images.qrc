@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/default_aircraft.jpg</file>
+    </qresource>
+</RCC>

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QProcess>
 #include <QStringList>
+#include <QSettings>
 
 class LaunchManager : public QObject {
     Q_OBJECT
@@ -17,11 +18,14 @@ public:
     Q_INVOKABLE void launch();
     Q_INVOKABLE void stop();
     Q_INVOKABLE QString aircraftThumbnail(const QString& aircraftName);
+    Q_INVOKABLE bool setFgRoot(const QString& path);
+    Q_INVOKABLE bool isValidFgRoot(const QString& path) const;
+    Q_INVOKABLE QString readFgDataVersion(const QString& path) const;
+    Q_INVOKABLE QVariantMap aircraftMetadata(const QString& aircraftName) const;
 
     bool isRunning() const;
     QString fgRoot() const;
     QStringList aircraftList() const;
-    void setFgRoot(const QString& path);
 
 signals:
     void runningChanged();

@@ -4,7 +4,7 @@ import QtQuick.Controls 2.15
 import "./LaunchSubPages"
 
 Rectangle {
-    anchors.fill: parent
+    property real topOffset: 0
     color: "transparent"
 
     Text {
@@ -15,13 +15,12 @@ Rectangle {
     }
 
     StackView {
-        id: stack_launch
         anchors {
-            top: topbar.bottom
+            top: parent.top
+            topMargin: topOffset + 12
             bottom: parent.bottom
             left: parent.left
             right: parent.right
-            topMargin: 12
         }
         initialItem: "qrc:/qml/pages/LaunchSubPages/Aircrafts.qml"
     }

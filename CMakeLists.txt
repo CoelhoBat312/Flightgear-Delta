@@ -12,7 +12,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick LinguistTools)
 
-set(TS_FILES Flightgear_Delta_en_150.ts)
+set(TS_FILES Flightgear_Delta_en_US.ts
+    Flightgear_Delta_ru_RU.ts)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -31,6 +32,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
     qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    add_custom_target(translations ALL DEPENDS ${QM_FILES})
 else()
     if(ANDROID)
         add_library(Flightgear_Delta SHARED
@@ -42,10 +44,12 @@ else()
         add_executable(Flightgear_Delta
           ${PROJECT_SOURCES}
           core/launchmanager.h core/launchmanager.cpp
+          images.qrc
         )
     endif()
 
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    add_custom_target(translations ALL DEPENDS ${QM_FILES})
 endif()
 
 target_link_libraries(Flightgear_Delta

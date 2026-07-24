@@ -1,68 +1,113 @@
 import QtQuick 2.15
-
 Rectangle {
+    id: root
     property string aircraftName: ""
 
-    color: "#ee1a1a1a"
+    property bool opened: false
 
-    // закрыть по клику на фон
+    color: "#ee1a1a1a"
+    visible: opacity > 0
+    opacity: 0
+
+    Behavior on opacity {
+        NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
+    }
+
+    onOpenedChanged: opacity = opened ? 1 : 0
+
     MouseArea {
         anchors.fill: parent
-        onClicked: parent.visible = false
+        onClicked: root.opened = false
     }
 
     Rectangle {
+        id: panel
         width: 500
         height: 400
         radius: 12
         color: "#242424"
         anchors.centerIn: parent
 
-        // чтобы клик по панели не закрывал её
+        scale: root.opened ? 1.0 : 0.9
+        Behavior on scale {
+            NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
+        }
+
         MouseArea { anchors.fill: parent }
 
-        Column {
-            anchors {
-                fill: parent
-                margins: 24
-            }
-            spacing: 16
+        Flickable {
+            anchors { fill: parent; margins: 24 }
+            contentHeight: content.height
+            clip: true
+            boundsBehavior: Flickable.StopAtBounds
 
-            Image {
+            Column {
+                id: content
                 width: parent.width
-                height: 220
-                source: launcher.aircraftThumbnail(aircraftName)
-                fillMode: Image.PreserveAspectCrop
-            }
+                spacing: 16
 
-            Text {
-                text: aircraftName
-                color: "#ffffff"
-                font.pixelSize: 20
-                font.weight: Font.Medium
-            }
+                property var metadata: launcher.aircraftMetadata(root.aircraftName)
 
-            Text {
-                text: "fg_root: " + launcher.fgRoot + "/Aircraft/" + aircraftName
-                color: "#888888"
-                font.pixelSize: 12
+                Image {
+                    width: parent.width
+                    height: 220
+                    source: launcher.aircraftThumbnail(root.aircraftName)
+                    fillMode: Image.PreserveAspectFit
+                    horizontalAlignment: Image.AlignHCenter
+                    verticalAlignment: Image.AlignVCenter
+                }
+                Text {
+                    text: root.aircraftName
+                    color: "#ffffff"
+                    font.pixelSize: 20
+                    font.weight: Font.Medium
+                }
+                Text {
+                    visible: content.metadata.description !== ""
+                    text: content.metadata.description
+                    color: "#cccccc"
+                    font.pixelSize: 13
+                    wrapMode: Text.WordWrap
+                    width: parent.width
+                }
+                Text {
+                    visible: content.metadata.author !== ""
+                    text: qsTr("Author: ") + content.metadata.author
+                    color: "#888888"
+                    font.pixelSize: 12
+                    wrapMode: Text.WordWrap
+                    width: parent.width
+                }
+                Row {
+                    spacing: 2
+                    Repeater {
+                        model: 5
+                        Text {
+                            text: index < content.metadata.rating ? "★" : "☆"
+                            color: "#ffcc00"
+                            font.pixelSize: 16
+                        }
+                    }
+                }
+                Text {
+                    text: "fg_root: " + launcher.fgRoot + "/Aircraft/" + root.aircraftName
+                    color: "#666666"
+                    font.pixelSize: 11
+                    wrapMode: Text.WordWrap
+                    width: parent.width
+                }
             }
         }
 
-        // кнопка закрыть
         Text {
-            anchors {
-                top: parent.top
-                right: parent.right
-                margins: 16
-            }
+            anchors { top: parent.top; right: parent.right; margins: 16 }
             text: "✕"
             color: "#888888"
             font.pixelSize: 16
-
             MouseArea {
                 anchors.fill: parent
-                onClicked: detailPanel.visible = false
+                onClicked: root.opened = false
+                cursorShape: Qt.PointingHandCursor
             }
         }
     }

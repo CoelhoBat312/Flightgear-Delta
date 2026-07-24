@@ -13,16 +13,23 @@ Window {
     visible: true
     title: "Flightgear δ"
 
-    Component.onCompleted: {
-        launcher.fgRoot = "/home/andrew/.fgfs"
-    }
-
     Rectangle {
         anchors.fill: parent
         color: "#1a1a1a"
 
+        FirstRunScreen {
+            anchors.fill: parent
+            visible: launcher.fgRoot === ""
+            onPathSelected: (path) => {
+                launcher.setFgRoot(path)
+            }
+        }
+
+
         Rectangle {
             id: topbar
+
+            visible: launcher.fgRoot !== ""
 
             height: 48
             implicitWidth: topbarRow.implicitWidth + 16
@@ -60,6 +67,7 @@ Window {
 
         StackView {
             id: stack
+            visible: launcher.fgRoot !== ""
             anchors {
                 top: topbar.bottom
                 bottom: parent.bottom

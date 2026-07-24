@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import "../components"
+import "../../components"
 
 Item {
     anchors.fill: parent
@@ -9,6 +9,7 @@ Item {
         anchors {
             fill: parent
             margins: 24
+            centerIn: parent
         }
         cellWidth: 196
         cellHeight: 236
@@ -19,15 +20,13 @@ Item {
             thumbnailSource: launcher.aircraftThumbnail(modelData)
             onClicked: {
                 detailPanel.aircraftName = modelData
-                detailPanel.visible = true
+                detailPanel.opened = true
             }
         }
     }
 
-    // панель с описанием поверх
     AircraftDetailPanel {
         id: detailPanel
         anchors.fill: parent
-        visible: false
     }
 }

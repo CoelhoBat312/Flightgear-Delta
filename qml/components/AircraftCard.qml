@@ -7,7 +7,6 @@ Rectangle {
 
     width: 180
     height: 220
-    radius: 8
     color: "#242424"
     clip: true
 
@@ -39,22 +38,25 @@ Rectangle {
         font.weight: Font.Medium
     }
 
-    // hover эффект
+    // Hover effect
     Rectangle {
-        anchors.fill: parent
-        radius: parent.radius
-        color: "#22ffffff"
-        opacity: 0
         id: hoverOverlay
+        anchors.fill: parent
+        opacity: 0
+        gradient: Gradient {
+            GradientStop { position: 0.4; color: "transparent"}
+            GradientStop { position: 1; color: "#22ffffff"}
+        }
 
         Behavior on opacity {
-            NumberAnimation { duration: 150 }
+            NumberAnimation { duration: 1000; easing.type: Easing.OutBounce }
         }
     }
 
     MouseArea {
         anchors.fill: parent
         hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
         onEntered: hoverOverlay.opacity = 1
         onExited:  hoverOverlay.opacity = 0
         onClicked: parent.clicked()
