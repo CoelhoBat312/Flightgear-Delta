@@ -2,9 +2,9 @@
 
 Now that is something interesting. **This project is in progress... and, well, frozen at the same time**.
 
-**FlightGear δ** is a (yet still) single-made project, which adds a new launcher for [FlightGear Flight Simulator](https://www.flightgear.org/). The best way to describe the project is "When a half-designer decides he's a half-programmer". Though I must admit! I'm not either.
+**FlightGear δ** is a (yet still) solo-made project, which adds a new launcher for [FlightGear Flight Simulator](https://www.flightgear.org/). The best way to describe the project is "When a half-designer decides he's a half-programmer". Though I must admit! I'm not either.
 
-I'm trying to make myself continue on this project, but nah, too lazy. Sometimes I add some fixes.
+I'm trying to make myself keep working on this project, but nah, too lazy. Sometimes I add some fixes.
 
 ## Tech stack
 
@@ -29,5 +29,9 @@ By Andrei Panov, started in 2026.
 
 ## Some screenshots
 
+**10.6.2026**
 ![A screenshot of the design for this project](./InAppScreenshots/2026.06.10.png)
+---
+
+**24.7.2026**
 ![Screenshot of aircrafts' list](./InAppScreenshots/2026.07.24.png)
