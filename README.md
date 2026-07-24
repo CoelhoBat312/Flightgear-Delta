@@ -1,6 +1,10 @@
 # FlightGear δ (delta)
 
-Now that is something interesting. This app is in progress... and freezed at the same time. I'm trying to make myself continue on this project, but nah, too lazy.
+Now that is something interesting. **This project is in progress... and, well, freezed at the same time**. 
+
+**FlightGear δ** is a (yet+still) single made project, which adds a new launcher for [FlightGear Flight Simulator](https://www.flightgear.org/). The best way to describe the project is "When a half-designer decides he's a half-programmer". Though I must admit! I'm not either.
+
+I'm trying to make myself continue on this project, but nah, too lazy. Sometimes I add some fixes.
 
 ## Functionality (and roadmap):
 
@@ -9,6 +13,11 @@ Now that is something interesting. This app is in progress... and freezed at the
  - [ ] Settings
  - [ ] Presets system
  - [ ] Launch (finally, yes)
+
+
+Soon here will be some more description, when I'm not as lazy.
+
+By Andrei Panov, started in 2026.
 
 ## Some screenshots
 
