@@ -4,8 +4,18 @@
 <context>
     <name>AircraftDetailPanel</name>
     <message>
-        <location filename="qml/components/AircraftDetailPanel.qml" line="75"/>
+        <location filename="qml/components/AircraftDetailPanel.qml" line="77"/>
         <source>Author: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/components/AircraftDetailPanel.qml" line="103"/>
+        <source>Set file location: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/components/AircraftDetailPanel.qml" line="134"/>
+        <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

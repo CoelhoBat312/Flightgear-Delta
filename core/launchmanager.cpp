@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QXmlStreamReader>
 #include <QVariantMap>
+#include <algorithm>
+#include <QRegularExpression>
 
 LaunchManager::LaunchManager(QObject* parent)
     : QObject(parent)
@@ -41,6 +43,16 @@ void LaunchManager::launch(QStringList args) {
 
     m_process->start("fgfs", args);
 }
+
+void LaunchManager::stop() {
+    if (!m_running) return;
+    m_process->terminate();
+}
+
+bool LaunchManager::isRunning() const {
+    return m_running;
+}
+
 
 bool LaunchManager::isValidFgRoot(const QString& path) const
 {
@@ -91,56 +103,76 @@ bool LaunchManager::setFgRoot(const QString& path) {
     return true;
 }
 
-QString LaunchManager::fgRoot() const { return m_fgRoot; }
-
 QStringList LaunchManager::aircraftList() const { return m_aircraftList; }
-
-void LaunchManager::scanAircraft() {
-    m_aircraftList.clear();
-    QDir aircraftDir(m_fgRoot + "/Aircraft");
-    qDebug() << "scanAircraft called, fgRoot =" << m_fgRoot << "exists =" << aircraftDir.exists();
-    if (!aircraftDir.exists()) return;
-    const auto dirs = aircraftDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-    for (const QString& name : dirs) {
-        QDir sub(aircraftDir.filePath(name));
-        const auto setFiles = sub.entryList({"*-main.xml", "*-common.xml"}, QDir::Files);
-        if (!setFiles.isEmpty()) {
-            m_aircraftList << name;
-        }
-    }
-    qDebug() << "aircraftList =" << m_aircraftList;
-    emit aircraftListChanged();
-}
-
+QString LaunchManager::fgRoot() const { return m_fgRoot; }
 QString LaunchManager::aircraftThumbnail(const QString& aircraftName) {
     QString path = m_fgRoot + "/Aircraft/" + aircraftName + "/thumbnail.jpg";
     if (QFileInfo::exists(path)) {
-        return "file://" + path;
+        return "file:///" + path;
     }
 
     return "qrc:/assets/default_aircraft.jpg";
 }
 
+void LaunchManager::scanAircraft() {
+    m_aircraftList.clear();
+    QDir aircraftDir(m_fgRoot + "/Aircraft");
+
+    if (!aircraftDir.exists()) return;
+
+    const auto dirs = aircraftDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+    for (const QString& name : dirs) {
+        QDir sub(aircraftDir.filePath(name));
+        auto setFiles = sub.entryList({"*-set.xml", "*-main.xml", "*-common.xml"}, QDir::Files);
+        std::sort(setFiles.begin(), setFiles.end(), [](const QString& a, const QString& b) {
+            return a.length() < b.length();
+        });
+        if (!setFiles.isEmpty()) {
+            m_aircraftList << name;
+        }
+    }
+
+    emit aircraftListChanged();
+}
+
+QString normalizeWhitespace(const QString& text)
+{
+    QString result = text;
+    result.replace(QRegularExpression("\\s+"), " ");
+    return result.trimmed();
+}
+
 QVariantMap LaunchManager::aircraftMetadata(const QString& aircraftName) const
 {
     QVariantMap result;
-    result["description"] = QString();
-    result["author"] = QString();
-    result["rating"] = 0;
+        result["description"] = QString();
+        result["long-description"] = QString();
+        result["author"] = QString();
+        result["rating"] = 0;
+        result["source"] = QString();
+        result["previews"] = QStringList();
 
     QDir dir(m_fgRoot + "/Aircraft/" + aircraftName);
-    const auto setFiles = dir.entryList({"*-main.xml", "*-common.xml"}, QDir::Files);
+    auto setFiles = dir.entryList({"*-set.xml", "*-main.xml", "*-common.xml"}, QDir::Files);
+
     if (setFiles.isEmpty()) {
         return result;
     }
+
+    std::sort(setFiles.begin(), setFiles.end(), [](const QString& a, const QString& b) {
+        return a.length() < b.length();
+    });
 
     QFile file(dir.filePath(setFiles.first()));
     if (!file.open(QIODevice::ReadOnly)) {
         return result;
     }
 
+    result["source"] = file.fileName();
+
     QXmlStreamReader xml(&file);
-    QStringList path; // текущий путь тегов, чтобы не путать <description> в разных секциях
+    QStringList path;
+    QStringList previews;
     int ratingSum = 0;
     int ratingCount = 0;
 
@@ -152,8 +184,16 @@ QVariantMap LaunchManager::aircraftMetadata(const QString& aircraftName) const
 
             if (path.join("/") == "PropertyList/sim/description") {
                 result["description"] = xml.readElementText();
+                path.removeLast();
+            } else if (path.join("/") == "PropertyList/sim/long-description") {
+                result["long_description"] = normalizeWhitespace(xml.readElementText());
+                path.removeLast();
             } else if (path.join("/") == "PropertyList/sim/author") {
                 result["author"] = xml.readElementText();
+                path.removeLast();
+            } else if (path.join("/") == "PropertyList/sim/previews/preview/path") {
+                previews.append(m_fgRoot + "/Aircraft/" + aircraftName + "/" + xml.readElementText());
+                path.removeLast();
             } else if (path.startsWith("PropertyList") && path.contains("rating") && tag != "rating") {
                 bool ok = false;
                 int val = xml.readElementText().toInt(&ok);
@@ -167,18 +207,11 @@ QVariantMap LaunchManager::aircraftMetadata(const QString& aircraftName) const
         }
     }
 
+    result["previews"] = previews;
+
     if (ratingCount > 0) {
         result["rating"] = qRound(static_cast<double>(ratingSum) / ratingCount);
     }
 
     return result;
-}
-
-void LaunchManager::stop() {
-    if (!m_running) return;
-    m_process->terminate();
-}
-
-bool LaunchManager::isRunning() const {
-    return m_running;
 }

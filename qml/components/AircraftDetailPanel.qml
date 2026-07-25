@@ -1,4 +1,7 @@
 import QtQuick 2.15
+
+import "qrc:/qml/"
+
 Rectangle {
     id: root
     property string aircraftName: ""
@@ -22,8 +25,8 @@ Rectangle {
 
     Rectangle {
         id: panel
-        width: 500
-        height: 400
+        width: parent.width *0.4
+        height: Math.min(parent.height *0.8, (content.height + 50))
         radius: 12
         color: "#242424"
         anchors.centerIn: parent
@@ -50,30 +53,37 @@ Rectangle {
 
                 Image {
                     width: parent.width
+                    visible: content.metadata.previews.length === 0
                     height: 220
                     source: launcher.aircraftThumbnail(root.aircraftName)
                     fillMode: Image.PreserveAspectFit
                     horizontalAlignment: Image.AlignHCenter
                     verticalAlignment: Image.AlignVCenter
                 }
+
+                ImagesCarousel {
+                    visible: content.metadata.previews.length !== 0
+                    images: content.metadata.previews
+                }
+
                 Text {
-                    text: root.aircraftName
+                    text: content.metadata.description
                     color: "#ffffff"
                     font.pixelSize: 20
                     font.weight: Font.Medium
                 }
                 Text {
-                    visible: content.metadata.description !== ""
-                    text: content.metadata.description
-                    color: "#cccccc"
-                    font.pixelSize: 13
+                    visible: content.metadata.author !== ""
+                    text: qsTr("Author: ") + content.metadata.author
+                    color: "#888888"
+                    font.pixelSize: 12
                     wrapMode: Text.WordWrap
                     width: parent.width
                 }
                 Text {
-                    visible: content.metadata.author !== ""
-                    text: qsTr("Author: ") + content.metadata.author
-                    color: "#888888"
+                    visible: content.metadata.long_description !== ""
+                    text: content.metadata.long_description
+                    color: "#cccccc"
                     font.pixelSize: 12
                     wrapMode: Text.WordWrap
                     width: parent.width
@@ -90,9 +100,9 @@ Rectangle {
                     }
                 }
                 Text {
-                    text: "fg_root: " + launcher.fgRoot + "/Aircraft/" + root.aircraftName
+                    text: qsTr("Set file location: ") + launcher.fgRoot + "/Aircraft/" + root.aircraftName + "/" + content.metadata.source
                     color: "#666666"
-                    font.pixelSize: 11
+                    font.pixelSize: 10
                     wrapMode: Text.WordWrap
                     width: parent.width
                 }
@@ -106,8 +116,30 @@ Rectangle {
             font.pixelSize: 16
             MouseArea {
                 anchors.fill: parent
-                onClicked: root.opened = false
                 cursorShape: Qt.PointingHandCursor
+                onClicked: root.opened = false
+            }
+        }
+
+        Rectangle {
+            anchors { bottom: parent.bottom; right: parent.right; margins: 16 }
+
+            width: 50
+            height: 25
+
+            color: "#888888"
+            radius: 5
+
+            Text {
+                text: qsTr("Select")
+                color: "#111111"
+                anchors.fill: parent
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: { AppState.launchStack.push("qrc:/qml/pages/LaunchSubPages/AircraftTypes.qml") }
             }
         }
     }

@@ -10,5 +10,9 @@
         <file>qml/components/AircraftCard.qml</file>
         <file>qml/components/AircraftDetailPanel.qml</file>
         <file>qml/pages/FirstRunScreen.qml</file>
+        <file>qml/components/ImagesCarousel.qml</file>
+        <file>qml/pages/LaunchSubPages/AircraftTypes.qml</file>
+        <file>qml/AppState.qml</file>
+        <file>qml/qmldir</file>
     </qresource>
 </RCC>

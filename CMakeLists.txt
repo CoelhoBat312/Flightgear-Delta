@@ -9,22 +9,26 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick LinguistTools)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick LinguistTools QuickControls2)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick LinguistTools QuickControls2)
 
 set(TS_FILES Flightgear_Delta_en_US.ts
     Flightgear_Delta_ru_RU.ts)
 
 set(PROJECT_SOURCES
-        main.cpp
-        qml.qrc
-        ${TS_FILES}
+    main.cpp
+    qml.qrc
+    ${TS_FILES}
 )
+
+set(QML_IMPORT_PATH "/usr/lib/x86_64-linux-gnu/qt6/qml" CACHE STRING "" FORCE)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Flightgear_Delta
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        core/launchmanager.cpp core/launchmanager.h
+        images.qrc
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Flightgear_Delta APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
