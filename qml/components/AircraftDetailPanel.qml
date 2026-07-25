@@ -125,15 +125,17 @@ Rectangle {
             anchors { bottom: parent.bottom; right: parent.right; margins: 16 }
 
             width: 50
-            height: 25
+            height: 20
 
-            color: "#888888"
+            color: "#555555"
             radius: 5
 
             Text {
                 text: qsTr("Select")
-                color: "#111111"
+                color: "#cccccc"
                 anchors.fill: parent
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
             }
 
             MouseArea {
